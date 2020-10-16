@@ -9,6 +9,7 @@ import (
 )
 
 const (
+	// DISTANCE constant value for the distance
 	DISTANCE = "200km"
 )
 
