@@ -5,6 +5,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
+)
+
+const (
+	DISTANCE = "200km"
 )
 
 // Location location of the request
@@ -45,8 +50,31 @@ func handlerPost(w http.ResponseWriter, r *http.Request) {
 
 func handlerSearch(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Received one request for search")
-	lat := r.URL.Query().Get("lat")
-	lon := r.URL.Query().Get("lon")
+	lat, _ := strconv.ParseFloat(r.URL.Query().Get("lat"), 64)
+	lon, _ := strconv.ParseFloat(r.URL.Query().Get("lon"), 64)
+	// range is optional
+	ran := DISTANCE
+	if val := r.URL.Query().Get("range"); val != "" {
+		ran = val + "km"
+	}
 
-	fmt.Fprintf(w, "Search received: %s %s", lat, lon)
+	fmt.Println("range is", ran)
+
+	// Return a fake post
+	p := &Post{
+		User:    "1111",
+		Message: "100 Most Beautiful Place",
+		Location: Location{
+			Lat: lat,
+			Lon: lon,
+		},
+	}
+	// json.Marshal is used to serialize Go type
+	js, err := json.Marshal(p)
+	if err != nil {
+		panic(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
 }
