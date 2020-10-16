@@ -26,6 +26,7 @@ func main() {
 	fmt.Println("started-service")
 	// All the request with endpoint "/post" will be handled by handlerPost
 	http.HandleFunc("/post", handlerPost)
+	http.HandleFunc("/search", handlerSearch)
 	// Start http server
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
@@ -40,4 +41,12 @@ func handlerPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "Post received: %s\n", p.Message)
+}
+
+func handlerSearch(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Received one request for search")
+	lat := r.URL.Query().Get("lat")
+	lon := r.URL.Query().Get("lon")
+
+	fmt.Fprintf(w, "Search received: %s %s", lat, lon)
 }
