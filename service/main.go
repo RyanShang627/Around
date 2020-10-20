@@ -9,8 +9,14 @@ import (
 )
 
 const (
+	// POST_INDEX constant value
+	POST_INDEX = "post"
+	// POST_TYPE constant value
+	POST_TYPE = "post"
 	// DISTANCE constant value for the distance
 	DISTANCE = "200km"
+	// Needs to update this URL if you deploy it to cloud.
+	ES_URL = "http://35.184.206.35:9200"
 )
 
 // Location location of the request
