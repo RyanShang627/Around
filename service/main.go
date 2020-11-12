@@ -22,7 +22,7 @@ const (
 	DISTANCE = "200km"
 
 	// Needs to update this URL if you deploy it to cloud.
-	ES_URL = "http://35.222.222.92:9200"
+	ES_URL = "http://localhost:9200"
 )
 
 // Location location of the request
