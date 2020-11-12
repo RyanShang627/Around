@@ -82,7 +82,6 @@ func createIndexIfNotExist() {
 			panic(err)
 		}
 	}
-
 }
 
 func handlerPost(w http.ResponseWriter, r *http.Request) {
@@ -127,7 +126,6 @@ func handlerPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Printf("Saved one post to ElasticSearch: %s", p.Message)
-
 }
 
 func handlerSearch(w http.ResponseWriter, r *http.Request) {
@@ -162,7 +160,6 @@ func handlerSearch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(js)
-
 }
 
 // Save a post to ElasticSearch
