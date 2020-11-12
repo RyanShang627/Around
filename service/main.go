@@ -10,6 +10,7 @@ import (
 	"reflect"
 	"strconv"
 
+	"cloud.google.com/go/storage"
 	"github.com/olivere/elastic"
 	"github.com/pborman/uuid"
 )
@@ -21,7 +22,8 @@ const (
 	POST_TYPE = "post"
 	// DISTANCE constant value for the distance
 	DISTANCE = "200km"
-
+	// BUCKEY_NAME name of the bucket
+	BUCKET_NAME = "ryan-around-project"
 	// Needs to update this URL if you deploy it to cloud.
 	ES_URL = "http://localhost:9200"
 )
@@ -39,6 +41,7 @@ type Post struct {
 	User     string   `json:"user"`
 	Message  string   `json:"message"`
 	Location Location `json:"location"`
+	Url      string   `json:"url"`
 }
 
 func main() {
@@ -228,6 +231,7 @@ func saveToGCS(r io.Reader, bucketName, objectName string) (*storage.ObjectAttrs
 		return nil, err
 	}
 
+	// All the users can access
 	if err = object.ACL().Set(ctx, storage.AllUsers, storage.RoleReader); err != nil {
 		return nil, err
 	}
